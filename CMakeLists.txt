@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.10.1)
+cmake_minimum_required(VERSION 3.11.1)
+cmake_policy(VERSION 3.11.1)
 
 project(
   geGL
@@ -7,131 +8,132 @@ project(
 
 SET(CMAKE_CXX_STANDARD 14)
 
-set(SOURCES
-  src/${PROJECT_NAME}/Buffer.cpp
-  src/${PROJECT_NAME}/VertexArray.cpp
-  src/${PROJECT_NAME}/Framebuffer.cpp
-  src/${PROJECT_NAME}/Texture.cpp
-  src/${PROJECT_NAME}/Sampler.cpp
-  src/${PROJECT_NAME}/ProgramPipeline.cpp
-  src/${PROJECT_NAME}/Shader.cpp
-  src/${PROJECT_NAME}/Program.cpp
-  src/${PROJECT_NAME}/Renderbuffer.cpp
-  src/${PROJECT_NAME}/AsynchronousQuery.cpp
-  src/${PROJECT_NAME}/DebugMessage.cpp
-  src/${PROJECT_NAME}/OpenGLObject.cpp
-  src/${PROJECT_NAME}/geGL.cpp
-  src/${PROJECT_NAME}/OpenGLContext.cpp
-  src/${PROJECT_NAME}/OpenGL.cpp
-  src/${PROJECT_NAME}/OpenGLUtil.cpp
-  src/${PROJECT_NAME}/StaticCalls.cpp
-  src/${PROJECT_NAME}/GLSLNoise.cpp
-  )
-
-set(INCLUDES
-  src/${PROJECT_NAME}/Fwd.h
-  src/${PROJECT_NAME}/Definitions.h
-  src/${PROJECT_NAME}/Buffer.h
-  src/${PROJECT_NAME}/VertexArray.h
-  src/${PROJECT_NAME}/Framebuffer.h
-  src/${PROJECT_NAME}/Texture.h
-  src/${PROJECT_NAME}/Sampler.h
-  src/${PROJECT_NAME}/ProgramPipeline.h
-  src/${PROJECT_NAME}/Shader.h
-  src/${PROJECT_NAME}/Program.h
-  src/${PROJECT_NAME}/ProgramInfo.h
-  src/${PROJECT_NAME}/Renderbuffer.h
-  src/${PROJECT_NAME}/OpenGL.h
-  src/${PROJECT_NAME}/OpenGLUtil.h
-  src/${PROJECT_NAME}/AsynchronousQuery.h
-  src/${PROJECT_NAME}/DebugMessage.h
-  src/${PROJECT_NAME}/OpenGLObject.h
-  src/${PROJECT_NAME}/geGL.h
-  src/${PROJECT_NAME}/OpenGLFunctionTable.h
-  src/${PROJECT_NAME}/OpenGLContext.h
-  src/${PROJECT_NAME}/OpenGLCapabilities.h
-  src/${PROJECT_NAME}/FunctionLoaderInterface.h
-  src/${PROJECT_NAME}/DefaultLoader.h
-  src/${PROJECT_NAME}/LoaderTableDecorator.h
-  src/${PROJECT_NAME}/DSATableDecorator.h
-  src/${PROJECT_NAME}/TrapTableDecorator.h
-  src/${PROJECT_NAME}/CapabilitiesTableDecorator.h
-  src/${PROJECT_NAME}/StaticCalls.h
-  src/${PROJECT_NAME}/GLSLNoise.h
-  )
-
-set(GENERATED_INCLUDES
-  src/${PROJECT_NAME}/Generated/ContextCalls.h
-  src/${PROJECT_NAME}/Generated/ContextDeclarations.h
-  src/${PROJECT_NAME}/Generated/FunctionTableCalls.h
-  src/${PROJECT_NAME}/Generated/LoaderImplementation.h
-  src/${PROJECT_NAME}/Generated/LoaderLoadingCalls.h
-  src/${PROJECT_NAME}/Generated/NumberOfFunctions.h
-  src/${PROJECT_NAME}/Generated/MemberOpenGLFunctions.h
-  src/${PROJECT_NAME}/Generated/MemberOpenGLPFN.h
-  src/${PROJECT_NAME}/Generated/OpenGLConstants.h
-  src/${PROJECT_NAME}/Generated/OpenGLFunctions.h
-  src/${PROJECT_NAME}/Generated/OpenGLPFN.h
-  src/${PROJECT_NAME}/Generated/OpenGLTypes.h
-  src/${PROJECT_NAME}/Generated/TrapCalls.h
-  src/${PROJECT_NAME}/Generated/TrapImplementation.h
-  )
+include(GenerateExportHeader)
+include(GNUInstallDirs)
 
 option(BUILD_SHARED_LIBS "build this library as shared")
 
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
 SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "add a postfix, usually empty on windows")
-SET(CMAKE_RELWITHDEBINFO_POSTFIX "rd" CACHE STRING "add a postfix, usually empty on windows")
-SET(CMAKE_MINSIZEREL_POSTFIX "s" CACHE STRING "add a postfix, usually empty on windows")
+
+set(HEADER_PATH ${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT_NAME})
+set(SRC_PATH ${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT_NAME})
+
+set(SOURCES
+  ${SRC_PATH}/Buffer.cpp
+  ${SRC_PATH}/VertexArray.cpp
+  ${SRC_PATH}/Framebuffer.cpp
+  ${SRC_PATH}/Texture.cpp
+  ${SRC_PATH}/Sampler.cpp
+  ${SRC_PATH}/ProgramPipeline.cpp
+  ${SRC_PATH}/Shader.cpp
+  ${SRC_PATH}/Program.cpp
+  ${SRC_PATH}/Renderbuffer.cpp
+  ${SRC_PATH}/AsynchronousQuery.cpp
+  ${SRC_PATH}/DebugMessage.cpp
+  ${SRC_PATH}/OpenGLObject.cpp
+  ${SRC_PATH}/geGL.cpp
+  ${SRC_PATH}/OpenGLContext.cpp
+  ${SRC_PATH}/OpenGL.cpp
+  ${SRC_PATH}/OpenGLUtil.cpp
+  ${SRC_PATH}/StaticCalls.cpp
+  ${SRC_PATH}/GLSLNoise.cpp
+  )
+
+set(INCLUDES
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/Export.h
+  ${HEADER_PATH}/Fwd.h
+  ${HEADER_PATH}/Definitions.h
+  ${HEADER_PATH}/Buffer.h
+  ${HEADER_PATH}/VertexArray.h
+  ${HEADER_PATH}/Framebuffer.h
+  ${HEADER_PATH}/Texture.h
+  ${HEADER_PATH}/Sampler.h
+  ${HEADER_PATH}/ProgramPipeline.h
+  ${HEADER_PATH}/Shader.h
+  ${HEADER_PATH}/Program.h
+  ${HEADER_PATH}/ProgramInfo.h
+  ${HEADER_PATH}/Renderbuffer.h
+  ${HEADER_PATH}/OpenGL.h
+  ${HEADER_PATH}/OpenGLUtil.h
+  ${HEADER_PATH}/AsynchronousQuery.h
+  ${HEADER_PATH}/DebugMessage.h
+  ${HEADER_PATH}/OpenGLObject.h
+  ${HEADER_PATH}/geGL.h
+  ${HEADER_PATH}/OpenGLFunctionTable.h
+  ${HEADER_PATH}/OpenGLContext.h
+  ${HEADER_PATH}/OpenGLCapabilities.h
+  ${HEADER_PATH}/FunctionLoaderInterface.h
+  ${HEADER_PATH}/DefaultLoader.h
+  ${HEADER_PATH}/LoaderTableDecorator.h
+  ${HEADER_PATH}/DSATableDecorator.h
+  ${HEADER_PATH}/TrapTableDecorator.h
+  ${HEADER_PATH}/CapabilitiesTableDecorator.h
+  ${HEADER_PATH}/StaticCalls.h
+  ${HEADER_PATH}/GLSLNoise.h
+  )
+
+set(GENERATED_INCLUDES
+  ${HEADER_PATH}/Generated/ContextCalls.h
+  ${HEADER_PATH}/Generated/ContextDeclarations.h
+  ${HEADER_PATH}/Generated/FunctionTableCalls.h
+  ${HEADER_PATH}/Generated/LoaderImplementation.h
+  ${HEADER_PATH}/Generated/LoaderLoadingCalls.h
+  ${HEADER_PATH}/Generated/NumberOfFunctions.h
+  ${HEADER_PATH}/Generated/MemberOpenGLFunctions.h
+  ${HEADER_PATH}/Generated/MemberOpenGLPFN.h
+  ${HEADER_PATH}/Generated/OpenGLConstants.h
+  ${HEADER_PATH}/Generated/OpenGLFunctions.h
+  ${HEADER_PATH}/Generated/OpenGLPFN.h
+  ${HEADER_PATH}/Generated/OpenGLTypes.h
+  ${HEADER_PATH}/Generated/TrapCalls.h
+  ${HEADER_PATH}/Generated/TrapImplementation.h
+  )
+
 
 add_library(${PROJECT_NAME} ${SOURCES} ${INCLUDES} ${GENERATED_INCLUDES})
-add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+add_library(ge::gl ALIAS ${PROJECT_NAME})
 
-include(GNUInstallDirs)
+GENERATE_EXPORT_HEADER(${PROJECT_NAME}
+   EXPORT_FILE_NAME "${PROJECT_NAME}/Export.h"
+)
 
-target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
-
+target_include_directories(${PROJECT_NAME} PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/src>
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/${PROJECT_NAME}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
 
 set(PROJECT_NAME_LOWER)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 
-include(GenerateExportHeader)
-generate_export_header(${PROJECT_NAME} EXPORT_FILE_NAME ${PROJECT_NAME}/${PROJECT_NAME_LOWER}_export.h)
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY VERSION ${PROJECT_VERSION})
 set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION ${PROJECT_VERSION_MAJOR})
 set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
+#########################################
+# Install
+
+install(FILES
+   ${RG_INCLUDES}
+   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+)
+
+install(FILES
+  ${GENERATED_INCLUDES}
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/Generated
+)
 
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Targets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-  )
-
-install(
-  FILES
-  ${INCLUDES}
-  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME_LOWER}_export.h
-  DESTINATION
-  ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
-  COMPONENT
-  Devel
-  )
-
-install(
-  FILES
-  ${GENERATED_INCLUDES}
-  DESTINATION
-  ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/Generated
-  COMPONENT
-  Devel
-  )
+)
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
@@ -140,32 +142,28 @@ write_basic_package_version_file(
   COMPATIBILITY SameMajorVersion
   )
 
-export(EXPORT ${PROJECT_NAME}Targets
-  FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}Targets.cmake
-  NAMESPACE ${PROJECT_NAME}::
-  )
-
-set(ConfigPackageLocation lib/cmake/${PROJECT_NAME})
-install(EXPORT ${PROJECT_NAME}Targets
-  FILE
-  ${PROJECT_NAME}Targets.cmake
-  NAMESPACE
-  ${PROJECT_NAME}::
-  DESTINATION
-  ${ConfigPackageLocation}
-  )
-
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}Config.cmake
   "include($" "{CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}Targets.cmake)"
   )
+  
+#########################################
+#Export
 
-install(
-  FILES
+set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+
+export(EXPORT ${PROJECT_NAME}Targets
+  FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}Targets.cmake
+  #NAMESPACE ${PROJECT_NAME}::
+  )
+
+install(EXPORT ${PROJECT_NAME}Targets
+  DESTINATION ${ConfigPackageLocation}
+)
+
+
+install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}Config.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}ConfigVersion.cmake
-  DESTINATION
-  ${ConfigPackageLocation}
-  COMPONENT
-  Devel
+  DESTINATION  ${ConfigPackageLocation}
   )
 

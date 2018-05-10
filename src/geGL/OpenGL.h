@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include<geGL/gegl_export.h>
+#include<geGL/Export.h>
 
 #include<stdint.h>
 #include<stddef.h>
