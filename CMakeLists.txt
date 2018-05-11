@@ -92,7 +92,7 @@ set(GENERATED_INCLUDES
 
 
 add_library(${PROJECT_NAME} ${SOURCES} ${INCLUDES} ${GENERATED_INCLUDES})
-add_library(ge::gl ALIAS ${PROJECT_NAME})
+# add_library(GPUEngine::GL ALIAS ${PROJECT_NAME}) # I'm still not happy about the namespace usage implications or naming conventions :(
 
 GENERATE_EXPORT_HEADER(${PROJECT_NAME}
    EXPORT_FILE_NAME "${PROJECT_NAME}/Export.h"
@@ -119,7 +119,7 @@ set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING 
 # Install
 
 install(FILES
-   ${RG_INCLUDES}
+   ${INCLUDES}
    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
 )
 
